@@ -112,8 +112,8 @@ func (d *DateHistogramAggregation) ToOpenSearchJSON() ([]byte, error) {
 	}
 
 	da := map[string]any{
-		"field":    d.Field,
-		"interval": d.Interval,
+		"field":          d.Field,
+		"fixed_interval": d.Interval,
 	}
 
 	if d.MinDocCount >= 0 {

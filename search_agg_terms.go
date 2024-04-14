@@ -267,7 +267,7 @@ func (t *TermsAggregationResults) UnmarshalJSON(m []byte) error {
 
 // TermBucketResult is a [AggregationResultMap] for a TermsAggregation
 type TermBucketResult struct {
-	Key                   string
+	Key                   interface{}
 	DocCount              int64
 	SubAggregationResults map[string]json.RawMessage
 }
