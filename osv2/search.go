@@ -34,6 +34,9 @@ type SearchRequest struct {
 	// From the starting index to search from
 	From int
 
+	// Last document's sort value to indicate where to start search from. Mutual exclusive with From attribute
+	SearchAfter []any
+
 	// Sort(s) to order the results returned
 	Sort []opensearchtools.Sort
 
@@ -95,6 +98,10 @@ func (r *SearchRequest) ToOpenSearchJSON() ([]byte, error) {
 		source["from"] = r.From
 	}
 
+	if len(r.SearchAfter) != 0 {
+		source["search_after"] = r.SearchAfter
+	}
+
 	if len(r.Sort) > 0 {
 		sorts := make([]json.RawMessage, len(r.Sort))
 		for i, s := range r.Sort {
@@ -154,6 +161,11 @@ func (r *SearchRequest) WithSize(n int) *SearchRequest {
 // A negative value for from will be ignored and not included in the SearchRequest.Source.
 func (r *SearchRequest) WithFrom(n int) *SearchRequest {
 	r.From = n
+	return r
+}
+
+func (r *SearchRequest) WithSearchAfter(n []any) *SearchRequest {
+	r.SearchAfter = n
 	return r
 }
 

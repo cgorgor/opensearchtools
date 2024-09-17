@@ -89,6 +89,12 @@ func TestSearchRequest_ToOpenSearchJSON(t *testing.T) {
 			want:    `{"aggs":{"t":{"terms":{"field":"field"}}}}`,
 			wantErr: false,
 		},
+		{
+			name:    "Set search after",
+			search:  NewSearchRequest().WithSearchAfter([]any{12345, "abcd"}),
+			want:    `{"search_after":[12345,"abcd"]}`,
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
